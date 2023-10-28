@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\build\Common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Foundation.fs" />
+    <Compile Include="Entities.fs" />
+    <Compile Include="UseCases.Repositories.fs" />
+    <Compile Include="UseCases.Positions.fs" />
+    <Compile Include="UseCases.Cashflow.fs" />
+    <Compile Include="UseCases.Performance.fs" />
+    <Compile Include="UseCases.Benchmark.fs" />
+    <Compile Include="Controllers.fs" />
+    <Compile Include="TestAPI.fs" />
+  </ItemGroup>
+
+</Project>

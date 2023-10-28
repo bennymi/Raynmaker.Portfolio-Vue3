@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\build\Common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IsTestProject>true</IsTestProject>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="TDK.fs" />
+    <Compile Include="Buying and selling stocks.fs" />
+    <Compile Include="Receiving dividends.fs" />
+    <Compile Include="Getting most recent price.fs" />
+    <Compile Include="Calculating a broker fee.fs" />
+    <Compile Include="Adding and removing cash.fs" />
+    <Compile Include="Evaluate open positions.fs" />
+    <Content Include="BDD.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+    <PackageReference Include="FsUnit" Version="3.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RaynMaker.Portfolio.Service\RaynMaker.Portfolio.Service.fsproj" />
+    <ProjectReference Include="..\RaynMaker.Portfolio\RaynMaker.Portfolio.fsproj" />
+  </ItemGroup>
+
+</Project>

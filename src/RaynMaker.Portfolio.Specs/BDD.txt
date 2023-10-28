@@ -1,0 +1,12 @@
+﻿
+
+- evaluate closed positions
+  - profit (market, dividend, total) (absolute,relative)
+  - annual profit (market, dividend, total) (absolute,relative)
+
+- calc diversification
+
+- benchmarking
+
+- cash flow
+

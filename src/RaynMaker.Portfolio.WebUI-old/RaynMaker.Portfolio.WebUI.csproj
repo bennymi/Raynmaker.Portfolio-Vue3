@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\build\Common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="node_modules\**" />
+    <EmbeddedResource Remove="node_modules\**" />
+    <None Remove="node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="package-lock.json" />
+  </ItemGroup>
+
+  <Target Name="BuildWebUI" AfterTargets="AfterBuild">
+    <Exec Command="npm run build" />
+    <ItemGroup>
+      <WebUI Include="dist\**" />
+    </ItemGroup>
+    <Copy SourceFiles="@(WebUI)" DestinationFolder="$(OutputPath)\Client\%(RecursiveDir)" />    
+  </Target>
+  
+</Project>
