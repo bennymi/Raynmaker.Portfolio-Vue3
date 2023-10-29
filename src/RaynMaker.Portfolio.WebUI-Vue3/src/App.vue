@@ -1,12 +1,16 @@
 <script setup lang="ts">
+	// import '@coreui/coreui/dist/css/coreui.min.css'
 	import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
 	<header>
 		<nav>
-			<RouterLink to="/">Home</RouterLink>
-			<RouterLink to="/about">About</RouterLink>
+			<RouterLink to="/">RaynMaker</RouterLink>
+			<!-- <RouterLink to="/positions">Positions</RouterLink>
+			<RouterLink to="/performance">Performance</RouterLink>
+			<RouterLink to="/cashflow">Cashflow</RouterLink>
+			<RouterLink to="/history">History</RouterLink> -->
 		</nav>
 	</header>
 
