@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	// import '@coreui/coreui/dist/css/coreui.min.css'
+	import '@coreui/coreui/dist/css/coreui.min.css'
 	import { RouterLink, RouterView } from 'vue-router'
 </script>
 
@@ -7,14 +7,15 @@
 	<header>
 		<nav>
 			<RouterLink to="/">RaynMaker</RouterLink>
-			<!-- <RouterLink to="/positions">Positions</RouterLink>
-			<RouterLink to="/performance">Performance</RouterLink>
 			<RouterLink to="/cashflow">Cashflow</RouterLink>
-			<RouterLink to="/history">History</RouterLink> -->
+			<RouterLink to="/performance">Performance</RouterLink>
+			<RouterLink to="/history">History</RouterLink>
 		</nav>
 	</header>
 
-	<RouterView />
+	<body>
+		<RouterView />
+	</body>
 </template>
 
 <style scoped>
@@ -23,7 +24,11 @@
 		max-height: 100vh;
 		display: flex;
 		place-items: center;
-		padding-right: calc(var(--section-gap) / 2);
+		padding: 1rem 2rem 0;
+	}
+
+	body {
+		padding: 0 2rem;
 	}
 
 	nav {

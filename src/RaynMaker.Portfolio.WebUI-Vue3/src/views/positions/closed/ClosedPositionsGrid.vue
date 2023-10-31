@@ -1,3 +1,62 @@
+<script>
+    export default {
+      name: 'closed-positions-grid',
+      props: {
+        data: Array,
+        filterKey: String
+      },
+      data () {
+        const sortOrders = {}
+        sortOrders.name = 1
+        sortOrders.marketProfit = 1
+        sortOrders.dividendProfit = 1
+        sortOrders.totalProfit = 1
+        sortOrders.marketRoi = 1
+        sortOrders.dividendRoi = 1
+        sortOrders.totalRoi = 1
+        sortOrders.marketProfitAnnual = 1
+        sortOrders.dividendProfitAnnual = 1
+        sortOrders.totalProfitAnnual = 1
+        sortOrders.marketRoiAnnual = 1
+        sortOrders.dividendRoiAnnual = 1
+        sortOrders.totalRoiAnnual = 1
+        return {
+          sortKey: 'name',
+          sortOrders: sortOrders
+        }
+      },
+      computed: {
+        filteredData: function () {
+          const sortKey = this.sortKey
+          const filterKey = this.filterKey && this.filterKey.toLowerCase()
+          const order = this.sortOrders[sortKey] || 1
+          let data = this.data
+          if (filterKey) {
+            data = data.filter(function (row) {
+              return Object.keys(row).some(function (key) {
+                return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+              })
+            })
+          }
+          if (sortKey) {
+            data = data.slice().sort(function (a, b) {
+              a = a[sortKey]
+              b = b[sortKey]
+              return (a === b ? 0 : a > b ? 1 : -1) * order
+            })
+          }
+          return data
+        }
+      },
+      methods: {
+        sortBy: function (key) {
+          this.sortKey = key
+          this.sortOrders[key] = this.sortOrders[key] * -1
+        }
+      }
+    }
+  </script>
+
 <template>
     <table class="table table-bordered table-sm table-hover">
       <thead>
@@ -76,63 +135,4 @@
       </tbody>
     </table>
   </template>
-  
-  <script>
-    export default {
-      name: 'closed-positions-grid',
-      props: {
-        data: Array,
-        filterKey: String
-      },
-      data () {
-        const sortOrders = {}
-        sortOrders.name = 1
-        sortOrders.marketProfit = 1
-        sortOrders.dividendProfit = 1
-        sortOrders.totalProfit = 1
-        sortOrders.marketRoi = 1
-        sortOrders.dividendRoi = 1
-        sortOrders.totalRoi = 1
-        sortOrders.marketProfitAnnual = 1
-        sortOrders.dividendProfitAnnual = 1
-        sortOrders.totalProfitAnnual = 1
-        sortOrders.marketRoiAnnual = 1
-        sortOrders.dividendRoiAnnual = 1
-        sortOrders.totalRoiAnnual = 1
-        return {
-          sortKey: 'name',
-          sortOrders: sortOrders
-        }
-      },
-      computed: {
-        filteredData: function () {
-          const sortKey = this.sortKey
-          const filterKey = this.filterKey && this.filterKey.toLowerCase()
-          const order = this.sortOrders[sortKey] || 1
-          let data = this.data
-          if (filterKey) {
-            data = data.filter(function (row) {
-              return Object.keys(row).some(function (key) {
-                return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-              })
-            })
-          }
-          if (sortKey) {
-            data = data.slice().sort(function (a, b) {
-              a = a[sortKey]
-              b = b[sortKey]
-              return (a === b ? 0 : a > b ? 1 : -1) * order
-            })
-          }
-          return data
-        }
-      },
-      methods: {
-        sortBy: function (key) {
-          this.sortKey = key
-          this.sortOrders[key] = this.sortOrders[key] * -1
-        }
-      }
-    }
-  </script>
   

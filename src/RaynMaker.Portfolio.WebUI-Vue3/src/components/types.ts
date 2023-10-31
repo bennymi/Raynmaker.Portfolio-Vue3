@@ -11,10 +11,12 @@ export type Dataset = {
     backgroundColor: string[];
 }
 
+export type ChartData = {
+    labels: string[];
+    datasets: Dataset[];
+}
+
 export type PieData = {
-    chartData: {
-        labels: string[];
-        datasets: Dataset[];
-    };
+    chartData: ChartData;
     chartOptions?: any;
 }

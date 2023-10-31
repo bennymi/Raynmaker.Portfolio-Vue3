@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
 import PositionsOpen from '../views/positions/open/PositionsOpen.vue'
 
 const router = createRouter({
@@ -10,14 +9,27 @@ const router = createRouter({
       name: 'home',
       component: PositionsOpen
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
+    {
+      path: '/position-details/:isin/:name',
+      name: 'PositionDetails',
+      component: () => import('@/views/positions/details/PositionDetails.vue')
+    },
+    {
+      path: '/cashflow',
+      name: 'Cashflow',
+      component: () => import('@/views/cashflow/Cashflow.vue')
+    },
+    {
+      path: '/performance',
+      name: 'Performance',
+      component: () => import('@/views/performance/Performance.vue')
+    },
+    {
+      path: '/history',
+      name: 'History',
+      //@ts-ignore:next-line
+      component: () => import('@/views/positions/closed/ClosedPositions.vue')
+    }
   ]
 })
 

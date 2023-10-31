@@ -1,31 +1,26 @@
-<script>
+<script setup lang="ts">
 import API from '@/api'
+import { ref, onMounted, watch } from 'vue'
+import { CCard, CCardHeader, CCardTitle, CCardBody } from '@coreui/vue'
+import type { Transaction } from './types'
 
-export default {
-  name: 'Cashflow',
-  data() {
-    return {
-      transactions: null,
-      limit: 25
-    }
-  },
-  created() {
-    this.onLimitChanged()
-  },
-  methods: {
-    async onLimitChanged() {
-      const response = await API.get(`/cashflow?limit=${this.limit}`)
+const transactions = ref<Transaction[]>([])
+const limit = ref<number>(25)
 
-      this.transactions = response.data
-      console.log(response.data)
-    }
-  },
-  watch: {
-    limit() {
-      this.onLimitChanged()
-    }
+async function onLimitChanged() {
+  if (limit.value > 0) {
+    const response = await API.get(`/cashflow?limit=${limit.value}`)
+    transactions.value = response.data
   }
 }
+
+onMounted(() => {
+  onLimitChanged()
+})
+
+watch(limit, () => {
+  onLimitChanged()
+})
 </script>
 
 <template>

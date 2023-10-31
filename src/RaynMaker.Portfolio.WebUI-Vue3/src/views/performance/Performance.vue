@@ -1,22 +1,19 @@
-<script>
+<script setup lang="ts">
 import API from '@/api'
+import { CCard, CCardHeader, CCardBody, CCardTitle } from '@coreui/vue'
+import { ref, onMounted } from 'vue'
+import type { Performance, Benchmark } from './types'
 
-export default {
-  name: 'Performance',
-  data() {
-    return {
-      performance: null,
-      benchmark: null
-    }
-  },
-  async created() {
-    let response = await API.get('/performance')
-    this.performance = response.data
+const performance = ref<Performance | null>(null)
+const benchmark = ref<Benchmark | null>(null)
 
-    response = await API.get('/benchmark')
-    this.benchmark = response.data
-  }
-}
+onMounted(async() => {
+  const resPerformance = await API.get('/performance')
+  performance.value = resPerformance.data
+
+  const resBenchmark = await API.get('/benchmark')
+  benchmark.value = resBenchmark.data
+})
 </script>
 
 <template>
@@ -71,7 +68,7 @@ export default {
       </CCardBody>
     </CCard>
 
-    <CCard>
+    <CCard :style="{ 'margin-top': '2rem' }">
       <CCardHeader>
         <CCardTitle>Benchmark</CCardTitle>
       </CCardHeader>

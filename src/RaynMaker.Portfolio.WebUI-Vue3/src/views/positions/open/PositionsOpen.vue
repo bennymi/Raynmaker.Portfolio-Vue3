@@ -3,18 +3,18 @@ import { ref, onMounted } from 'vue'
 import { CCardHeader, CCard, CCardBody, CCardTitle } from '@coreui/vue'
 import API from '@/api'
 import PieChart from '@/components/PieChart.vue'
-// import PositionsGrid from './PositionsGrid.vue'
+import PositionsGrid from './PositionsGrid.vue'
+
+import type { Entry } from './types'
 
 const capital = ref([])
-const labels = ref([])
-const positions = ref()
-const summary = ref()
-const filter = ref()
+const labels = ref<string[]>([])
+const positions = ref<Entry[]>([])
+const summary = ref<Record<string, number>>({})
+const filter = ref('')
 
 onMounted(async () => {
     let response = await API.get('/positions')
-
-    console.log('response:', response.data);
     
     positions.value = response.data.positions
     summary.value = {
@@ -23,48 +23,13 @@ onMounted(async () => {
         totalProfit: response.data.totalProfit
     }
 
+    console.log('response:',  response.data.positions)
+
     response = await API.get('/diversification')
     capital.value = response.data.capital
     labels.value = response.data.labels
-    console.log('diversification response:', response.data)
 })
-
-// export default {
-//   data() {
-//     return {
-//       positions: [],
-//       summary: {},
-//       filter: '',
-//       diversification: {
-//         capital: null,
-//         labels: null
-//       }
-//     }
-//   },
-//   components: {
-//     'positions-grid': PositionsGrid,
-//     'pie-chart': PieChart
-//   },
-//   async created() {
-//     let response = await API.get('/positions')
-//     this.positions = response.data.positions
-//     this.summary = {
-//       totalInvestment: response.data.totalInvestment,
-//       currentValue: response.data.currentValue,
-//       totalProfit: response.data.totalProfit
-//     }
-
-//     response = await API.get('/diversification')
-//     this.diversification.capital = response.data.capital
-//     this.diversification.labels = response.data.labels
-//     console.log('diversification response:', response.data)
-//   }
-// }
 </script>
-
-<!-- <template>
-    <h1>test</h1>
-</template> -->
 
 <template>
   <div>
@@ -85,15 +50,14 @@ onMounted(async () => {
           </span>
         </form>
 
-        <!-- <PositionsGrid
-          :data="positions"
-          :filter-key="filter"
-          style="margin-top: 10px"
-        ></PositionsGrid> -->
+        <PositionsGrid
+          :entries="positions"
+          :filterKey="filter"
+        />
       </CCardBody>
     </CCard>
 
-    <CCard>
+    <CCard :style="{ 'margin-top': '2rem' }">
       <CCardHeader>
         <CCardTitle>Diversification</CCardTitle>
       </CCardHeader>

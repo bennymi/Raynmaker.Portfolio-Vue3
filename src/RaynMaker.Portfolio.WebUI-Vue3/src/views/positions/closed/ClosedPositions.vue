@@ -1,6 +1,7 @@
 <script>
 import API from '@/api'
-import ClosedPositionsGrid from './ClosedPositionsGrid'
+import ClosedPositionsGrid from './ClosedPositionsGrid.vue'
+import { CCard, CCardHeader, CCardBody, CCardTitle } from '@coreui/vue'
 
 export default {
   name: 'ClosedPositions',
@@ -11,7 +12,11 @@ export default {
     }
   },
   components: {
-    'closed-positions-grid': ClosedPositionsGrid
+    ClosedPositionsGrid,
+    CCard,
+    CCardHeader,
+    CCardBody,
+    CCardTitle
   },
   async created() {
     const response = await API.get('/closedPositions')
@@ -40,7 +45,7 @@ export default {
       </CCardBody>
     </CCard>
 
-    <CCard>
+    <CCard :style="{ 'margin-top': '2rem' }">
       <CCardHeader>
         <CCardTitle>Closed Positions</CCardTitle>
       </CCardHeader>
@@ -50,12 +55,12 @@ export default {
           <input name="query" v-model="filter" />
         </form>
 
-        <closed-positions-grid
+        <ClosedPositionsGrid
           v-if="data.positions"
           :data="data.positions"
           :filter-key="filter"
           style="margin-top: 10px"
-        ></closed-positions-grid>
+        ></ClosedPositionsGrid>
       </CCardBody>
     </CCard>
   </div>
